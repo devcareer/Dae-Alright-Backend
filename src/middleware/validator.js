@@ -1,4 +1,4 @@
-import { matchedData, validationResult } from 'express-validators';
+import { matchedData, validationResult } from 'express-validator';
 import response from '../helpers/response';
 
 export default (schemas) => {
