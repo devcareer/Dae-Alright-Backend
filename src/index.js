@@ -5,6 +5,8 @@ import cors from 'cors';
 import express from 'express';
 import log from 'fancy-log';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDoc from '../docs/dae-alright.json';
 import router from './routes';
 
 config();
@@ -25,6 +27,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(router);
 
 const port = NODE_ENV === 'test' ? 8378 : PORT || 3000;
