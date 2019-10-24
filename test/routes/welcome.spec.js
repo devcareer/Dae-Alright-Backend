@@ -5,7 +5,7 @@ import app from '../../src';
 const { expect } = chai;
 
 describe('Welcome routes', () => {
-  it('should return a welcome message on index route', (done) => {
+  it('should return a welcome message on index route', done => {
     request(app)
       .get('/')
       .end((err, res) => {
@@ -17,7 +17,7 @@ describe('Welcome routes', () => {
       });
   });
 
-  specify('error if a wrong endpoint is requested', (done) => {
+  specify('error if a wrong endpoint is requested', done => {
     request(app)
       .get('/404')
       .end((err, res) => {
