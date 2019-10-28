@@ -1,17 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable(
-    'OrderProduct',
+    'OrderProducts',
     {
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
-      },
       productId: {
         type: Sequelize.UUID,
         references: {
@@ -19,6 +9,7 @@ module.exports = {
           key: 'id'
         },
         allowNull: false,
+        primaryKey: true,
         onUpdate: 'CASCADE',
         onDelete: 'NO ACTION'
       },
@@ -29,11 +20,27 @@ module.exports = {
           key: 'id'
         },
         allowNull: false,
+        primaryKey: true,
         onUpdate: 'CASCADE',
         onDelete: 'NO ACTION'
+
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       }
     }
   ),
   // eslint-disable-next-line no-unused-vars
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('OrderProduct'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('OrderProducts'),
 };

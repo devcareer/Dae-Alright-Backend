@@ -4,8 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
-    },
-    date: DataTypes.DATE,
+    }
   }, {});
 
   Sale.associate = (models) => {

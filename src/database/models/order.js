@@ -3,9 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-    },
-    quantity: DataTypes.INTEGER,
+      defaultValue: DataTypes.UUIDV4
+    }
   }, {});
 
   Order.associate = models => {
@@ -19,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     );
     Order.belongsToMany(
       models.Product, {
-        through: 'OrderProduct',
+        through: models.OrderProduct,
         foreignKey: 'orderId',
         otherKey: 'productId',
         onDelete: 'NO ACTION',

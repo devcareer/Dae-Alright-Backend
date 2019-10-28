@@ -7,9 +7,6 @@ module.exports = {
       type: Sequelize.UUID,
       defaultValue: Sequelize.literal('uuid_generate_v4()')
     },
-    date: {
-      type: Sequelize.DATE
-    },
     orderId: {
       allowNull: false,
       type: Sequelize.UUID,
