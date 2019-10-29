@@ -8,10 +8,12 @@ module.exports = {
       defaultValue: Sequelize.literal('uuid_generate_v4()')
     },
     name: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false
     },
     price: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT,
+      allowNull: false
     },
     quantity: {
       type: Sequelize.INTEGER

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable(
-    'OrderProduct',
+    'OrderProducts',
     {
       createdAt: {
         allowNull: false,
@@ -31,9 +31,13 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'NO ACTION'
+      },
+      quantity: {
+        type: Sequelize.FLOAT,
+        allowNull: false
       }
     }
   ),
   // eslint-disable-next-line no-unused-vars
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('OrderProduct'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('OrderProducts'),
 };

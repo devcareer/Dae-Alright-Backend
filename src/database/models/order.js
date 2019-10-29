@@ -3,9 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-    },
-    quantity: DataTypes.INTEGER,
+      defaultValue: DataTypes.UUIDV4
+    }
   }, {});
 
   Order.associate = models => {

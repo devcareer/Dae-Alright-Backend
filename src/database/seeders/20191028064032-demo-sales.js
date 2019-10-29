@@ -1,24 +1,23 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+  up: async (queryInterface, Sequelize) => {
+    const orderId = await queryInterface.rawSelect('Orders', {}, ['id']);
+    if(!orderId) throw new Error("Invalid 'orderId'");
 
-      Example:
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+      return queryInterface.bulkInsert('Sales', [
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() },
+        { date: new Date(), orderId: orderId, createdAt: new Date(), updatedAt: new Date() }
+      ], {});
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
+      return queryInterface.bulkDelete('Sales', null, {});
   }
 };
