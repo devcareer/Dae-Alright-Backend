@@ -1,4 +1,7 @@
-// const hashPassword = require('../../helpers/hash-password');
+const bcrypt = require('bcrypt');
+const { config } = require('dotenv');
+
+config();
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -15,6 +18,24 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.TEXT
   }, {});
 
+  User.beforeCreate(async user => {
+    user.password = await user.generatePasswordHash();
+  });
+
+  User.prototype.generatePasswordHash = async function generatePasswordHash() {
+    const saltRounds = +process.env.SALT;
+    return bcrypt.hash(this.password, saltRounds);
+  };
+
+  User.prototype.getSafeDataValues = function getSafeDataValues() {
+    const { password, ...data } = this.dataValues;
+    return data;
+  }
+
+  User.prototype.validatePassword = async function validatePassword(password) {
+    return bcrypt.compare(password, this.password);
+  };
+
   User.associate = (models) => {
     User.hasMany(
       models.Review,
@@ -26,10 +47,5 @@ module.exports = (sequelize, DataTypes) => {
     );
   };
 
-  // eslint-disable-next-line no-unused-vars
-  /* User.addHook('beforeCreate', async (user, options) => {
-    const hashedPassword = await hashPassword(user.password);
-    User.password = hashedPassword;
-  }); */
   return User;
 };
