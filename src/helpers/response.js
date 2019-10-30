@@ -51,7 +51,7 @@ class Response {
     if (this.type === 'error') {
       return res.status(this.statusCode).json({
         status: this.type,
-        message: this.message
+        message: this.message,
       });
     }
     return res.status(this.statusCode).json(result);
