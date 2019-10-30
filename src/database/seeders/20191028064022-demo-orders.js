@@ -4,18 +4,71 @@ module.exports = {
     const customerId = await queryInterface.rawSelect("Users", {}, ['id']);
     if(!(vendorId && customerId)) throw new Error("Invalid 'vendorId' or 'customerId'");
 
-      return queryInterface.bulkInsert('Orders', [
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()},
-        { vendorId: vendorId, customerId: customerId, createdAt: new Date(), updatedAt: new Date()}
-      ], {});
+      return queryInterface.bulkInsert('Orders',
+        [
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            vendorId,
+            customerId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          }
+        ],
+        {}
+        );
   },
 
   down: (queryInterface, Sequelize) => {
