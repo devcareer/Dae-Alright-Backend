@@ -61,4 +61,5 @@ typings/
 .next
 
 build/
+docs/Dae-Alright.postman_collection.json
 package-lock.json
