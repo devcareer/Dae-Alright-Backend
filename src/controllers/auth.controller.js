@@ -27,3 +27,21 @@ export default class AuthController {
     }
   }
 }
+
+export const signin = async (req, res) => {
+  const { password, email } = req.body;
+  const user = await getExistingUser(email, req.user.email);
+
+  if (!user){
+    return response.send(res, 400, 'Invalid email');
+  }
+  const comparePassword = await comparePassword(password, req.user.password);
+
+  if (!comparePassword){
+    return response.send(res, 400, 'Invalid password');
+  }
+  const { Id, } = req.user;
+  const payload = { Id };
+  req.user.token = await generateToken(payload);
+  return respond.send(res, 200, 'Login successful');
+};
