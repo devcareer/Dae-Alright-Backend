@@ -31,9 +31,10 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'NO ACTION'
+
       },
       quantity: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
         allowNull: false
       }
     }

@@ -2,8 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
     id: {
       primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      type: DataTypes.UUID
     }
   }, {});
 
@@ -18,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     );
     Order.belongsToMany(
       models.Product, {
-        through: 'OrderProduct',
+        through: 'OrderProducts',
         foreignKey: 'orderId',
         otherKey: 'productId',
         onDelete: 'NO ACTION',

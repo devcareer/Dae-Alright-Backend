@@ -63,3 +63,7 @@ typings/
 build/
 docs/Dae-Alright.postman_collection.json
 package-lock.json
+
+# local test file
+test/dbtest.js
+test/query.js

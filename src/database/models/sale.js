@@ -2,8 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
     id: {
       primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      type: DataTypes.UUID
     }
   }, {});
 
