@@ -2,16 +2,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable(
     'OrderProducts',
     {
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
-      },
       productId: {
         type: Sequelize.UUID,
         references: {
@@ -19,6 +9,7 @@ module.exports = {
           key: 'id'
         },
         allowNull: false,
+        primaryKey: true,
         onUpdate: 'CASCADE',
         onDelete: 'NO ACTION'
       },
@@ -29,6 +20,7 @@ module.exports = {
           key: 'id'
         },
         allowNull: false,
+        primaryKey: true,
         onUpdate: 'CASCADE',
         onDelete: 'NO ACTION'
 
@@ -36,6 +28,16 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       }
     }
   ),

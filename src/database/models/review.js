@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
     id: {
       primaryKey: true,
-      type: DataTypes.UUID
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
     ratings: DataTypes.INTEGER,
     title: DataTypes.TEXT,

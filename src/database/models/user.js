@@ -1,10 +1,4 @@
 const bcrypt = require('bcrypt');
-<<<<<<< HEAD
-const { config } = require('dotenv');
-
-config();
-=======
->>>>>>> ch-setup-db_add-seeds
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -49,8 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     );
   };
 
-<<<<<<< HEAD
-=======
   // eslint-disable-next-line no-unused-vars
   User.beforeCreate(async user => {
     // eslint-disable-next-line no-param-reassign
@@ -68,6 +60,5 @@ module.exports = (sequelize, DataTypes) => {
     const { password, ...data } = this.dataValues;
     return data;
   };
->>>>>>> ch-setup-db_add-seeds
   return User;
 };

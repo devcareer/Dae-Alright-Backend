@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   const Vendor = sequelize.define('Vendor', {
     id: {
       primaryKey: true,
-      type: DataTypes.UUID
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -29,13 +30,17 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   // eslint-disable-next-line no-unused-vars
+  Vendor.beforeBulkCreate(vendors => {
+
+  });
+  // eslint-disable-next-line no-unused-vars
   Vendor.beforeCreate(async vendor => {
     // eslint-disable-next-line no-param-reassign
     vendor.password = await vendor.generatePasswordHash();
   });
   Vendor.prototype.generatePasswordHash = async function generatePasswordHash() {
     const saltRounds = +process.env.SALT;
-    hashedPassword = await bcrypt.hash(this.password, saltRounds);
+    const hashedPassword = await bcrypt.hash(this.password, saltRounds);
     return hashedPassword;
   };
   Vendor.prototype.validatePassword = async function validatePassword(password) {
