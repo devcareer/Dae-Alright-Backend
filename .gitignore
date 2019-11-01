@@ -64,6 +64,6 @@ build/
 docs/Dae-Alright.postman_collection.json
 package-lock.json
 
-# local test file
+# local test file. May be removed
 test/dbtest.js
 test/query.js
