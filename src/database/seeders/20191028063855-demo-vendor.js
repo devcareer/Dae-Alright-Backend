@@ -1,10 +1,10 @@
-module.exports = {
+export default{
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Vendors', [{
     name: 'Tunde',
     email: 'demo@demo.com',
     password: '123456',
-    createdAt: new Date(),
-    updatedAt: new Date()
+    created_at: new Date(),
+    updated_at: new Date()
   }], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Users', null, {})

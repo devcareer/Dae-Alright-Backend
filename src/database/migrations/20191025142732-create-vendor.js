@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Vendors', {
     id: {
       allowNull: false,
@@ -11,7 +11,7 @@ module.exports = {
       type: Sequelize.STRING
     },
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     password: {
       type: Sequelize.STRING
@@ -22,15 +22,15 @@ module.exports = {
     location: {
       type: Sequelize.TEXT
     },
-    createdAt: {
+    created_at: {
       allowNull: false,
       type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
+      defaultValue: Sequelize.NOW,
     },
-    updatedAt: {
+    updated_at: {
       allowNull: false,
       type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
+      defaultValue: Sequelize.NOW,
     }
   }),
   // eslint-disable-next-line no-unused-vars
