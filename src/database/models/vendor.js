@@ -1,6 +1,4 @@
-// const hashPassword = require('../../helpers/hash-password');
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Vendor = sequelize.define('Vendor', {
     id: {
       primaryKey: true,
@@ -28,11 +26,5 @@ module.exports = (sequelize, DataTypes) => {
       { foreignKey: 'vendorId', onDelete: 'NO ACTION' }
     );
   };
-
-  // eslint-disable-next-line no-unused-vars
-  /** Vendor.addHook('beforeCreate', async (vendor, options) => {
-    const hashedPassword = await hashPassword(vendor.password);
-    Vendor.password = hashedPassword;
-  }); */
   return Vendor;
 };
