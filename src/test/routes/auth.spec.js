@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../../src';
+import app from '../../';
 
 import { user } from '../mocks/user.mock';
 
 describe('Authentication Route', () => {
-  describe('Signup route', () => {
+  context('Signup route', () => {
     it('should successfully POST to signup route', (done) => {
       request(app)
         .post('/auth/signup')
@@ -17,8 +17,8 @@ describe('Authentication Route', () => {
           expect(message).to.eql('user created');
           expect(data).to.be.an('object');
           expect(data).to.have.property('user');
-          expect(data.user).to.have.property('firstName');
-          expect(data.user).to.have.property('lastName');
+          expect(data.user).to.have.property('first_name');
+          expect(data.user).to.have.property('last_name');
           expect(data.user).to.have.property('email');
           expect(data.user).to.have.property('phone');
           expect(data.user).to.have.property('address');
@@ -33,6 +33,7 @@ describe('Authentication Route', () => {
         .post('/auth/signup')
         .send(user)
         .end((err, res) => {
+          console.log('response body -->**', res.body);
           const { status, message } = res.body;
           expect(res.status).to.equal(409);
           expect(status).to.eql('error');
@@ -46,13 +47,13 @@ describe('Authentication Route', () => {
         .post('/auth/signup')
         .send({ email: user.email, password: user.password })
         .end((err, res) => {
-          const { status, message } = res.body;
+          const { status, errors } = res.body;
           expect(res.status).to.equal(400);
           expect(status).to.eql('error');
-          expect(message.phone).to.eql('enter a valid phone number');
-          expect(message.firstName)
+          expect(errors.phone).to.eql('enter a valid phone number');
+          expect(errors.first_name)
             .to.eql('first name should be between 2 to 15 characters');
-          expect(message.lastName)
+          expect(errors.last_name)
             .to.eql('last name should be between 2 to 15 characters');
           done(err);
         });
@@ -63,10 +64,10 @@ describe('Authentication Route', () => {
         .post('/auth/signup')
         .send({ name: user.name, email: 'wrong', password: user.password })
         .end((err, res) => {
-          const { status, message } = res.body;
+          const { status, errors } = res.body;
           expect(res.status).to.equal(400);
           expect(status).to.eql('error');
-          expect(message.email).to.eql('enter a valid email address');
+          expect(errors.email).to.eql('enter a valid email address');
           done(err);
         });
     });

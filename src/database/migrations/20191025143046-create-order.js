@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Orders', {
     id: {
       allowNull: false,
@@ -14,7 +14,8 @@ module.exports = {
         model: 'Users',
         key: 'id',
       },
-      onUpdate: 'CASCADE'
+      onUpdate: 'CASCADE',
+      field: 'customer_id',
     },
     vendorId: {
       allowNull: false,
@@ -23,7 +24,8 @@ module.exports = {
         model: 'Vendors',
         key: 'id',
       },
-      onUpdate: 'CASCADE'
+      onUpdate: 'CASCADE',
+      field: 'vendor_id',
     },
     quantity: {
       type: Sequelize.INTEGER
@@ -31,12 +33,14 @@ module.exports = {
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
+      defaultValue: Sequelize.NOW,
+      field: 'created_at',
     },
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
+      defaultValue: Sequelize.NOW,
+      field: 'updated_at',
     }
   }),
   // eslint-disable-next-line no-unused-vars

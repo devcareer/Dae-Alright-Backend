@@ -1,18 +1,20 @@
-module.exports = {
+export default{
   up: (queryInterface, Sequelize) => queryInterface.createTable(
     'OrderProduct',
     {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.NOW,
+        field: 'created_at',
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.NOW,
+        field: 'updated_at',
       },
-      productId: {
+      product_id: {
         type: Sequelize.UUID,
         references: {
           model: 'Products',
@@ -20,9 +22,10 @@ module.exports = {
         },
         allowNull: false,
         onUpdate: 'CASCADE',
-        onDelete: 'NO ACTION'
+        onDelete: 'NO ACTION',
+        field: 'product_id',
       },
-      orderId: {
+      order_id: {
         type: Sequelize.UUID,
         references: {
           model: 'Orders',
@@ -30,7 +33,8 @@ module.exports = {
         },
         allowNull: false,
         onUpdate: 'CASCADE',
-        onDelete: 'NO ACTION'
+        onDelete: 'NO ACTION',
+        field: 'order_id',
       }
     }
   ),

@@ -1,9 +1,7 @@
 /* eslint-disable arrow-body-style */
-import '@babel/polyfill';
 import { config } from 'dotenv';
 import cors from 'cors';
 import express from 'express';
-import log from 'fancy-log';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDoc from '../docs/dae-alright.json';
@@ -32,6 +30,8 @@ app.use(router);
 
 const port = NODE_ENV === 'test' ? 8378 : PORT || 3000;
 
-app.listen(port, () => log(`Server is running on http://localhost:${port}`));
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`)
+});
 
 export default app;

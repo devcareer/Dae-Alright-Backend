@@ -1,17 +1,17 @@
-const bcrypt = require('bcrypt');
-const { config } = require('dotenv');
+import bcrypt from 'bcrypt';
+import { config } from 'dotenv';
 
 config();
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
+    first_name: DataTypes.STRING,
+    last_name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
@@ -46,6 +46,5 @@ module.exports = (sequelize, DataTypes) => {
       { foreignKey: 'customerId', onDelete: 'NO ACTION' }
     );
   };
-
   return User;
 };

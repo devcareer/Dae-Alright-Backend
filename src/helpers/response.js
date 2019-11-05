@@ -1,63 +1,22 @@
-/**
- * @class Response
- */
-class Response {
-  /**
-   * @description Response class constructor
-   * @returns {object} Response object
-   */
-  constructor() {
-    this.statusCode = null;
-    this.type = null;
-    this.message = null;
-    this.data = null;
-  }
+export const successResponse = (res, statusCode, message, data = {}) => {
+  return res.status(statusCode).json({
+    status: 'success',
+    message,
+    data,
+  });
+};
 
-  /**
-   * @param {number} statusCode
-   * @param {string} message
-   * @param {object} data
-   * @returns {object} success response object
-   */
-  setSuccess(statusCode, message, data) {
-    this.statusCode = statusCode;
-    this.type = 'success';
-    this.message = message;
-    this.data = data;
-  }
+export const errorResponse = (res, statusCode, message, errors = {}) => {
+  return res.status(statusCode).json({
+    status: 'error',
+    message,
+    errors,
+  });
+};
 
-  /**
-   * @param {number} statusCode
-   * @param {string} message
-   * @returns {object} error response object
-   */
-  setError(statusCode, message) {
-    this.statusCode = statusCode;
-    this.type = 'error';
-    this.message = message;
-  }
-
-  /**
-   * @param {object} res
-   * @returns {object} response method
-   */
-  send(res) {
-    const result = {
-      status: this.type,
-      message: this.message,
-      data: this.data,
-    };
-
-    if (this.type === 'error') {
-      return res.status(this.statusCode).json({
-        status: this.type,
-        message: this.message,
-      });
-    }
-    return res.status(this.statusCode).json(result);
-  }
-}
-
-const response = new Response();
-
-export default response;
+export const serverError = (res, statusCode = 500) => {
+  return res.status(statusCode).json({
+    status: 'error',
+    message: 'Your request cannot be processed at this time. Please try again later.',
+  });
+};

@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     id: {
       primaryKey: true,
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     description: DataTypes.TEXT,
-    imageUrl: DataTypes.STRING
+    image_url: DataTypes.STRING
   }, {});
 
   Product.associate = (models) => {

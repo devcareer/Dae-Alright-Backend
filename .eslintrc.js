@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     env: {
         "browser": true,
         "es6": true,
@@ -14,7 +14,8 @@ module.exports = {
         "SharedArrayBuffer": "readonly"
     },
     parserOptions: {
-        "sourceType": "module"
+        "sourceType": "module",
+        "allowImportExportEverywhere": true
     },
     rules: {
         "arrow-parens": 0,
