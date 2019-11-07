@@ -10,6 +10,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
+    socialID: {
+      type: DataTypes.STRING,
+      field: 'social_id'
+    },
     firstName: {
       type: DataTypes.STRING,
       field: 'first_name'
@@ -18,6 +22,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       field: 'last_name'
     },
+    provider: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
