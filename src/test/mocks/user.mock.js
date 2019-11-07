@@ -1,6 +1,6 @@
 const user = {
-  firstName: 'DevCareer',
-  lastName: 'Advocate',
+  first_name: 'DevCareer',
+  last_name: 'Advocate',
   email: 'devcareer@africa.io',
   password: '123456789',
   phone: '08067490432',

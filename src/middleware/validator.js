@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from 'express-validator';
-import response from '../helpers/response';
+import { errorResponse } from '../helpers/response';
 
 export default schemas => {
   const validatorCheck = (req, res, next) => {
@@ -7,12 +7,13 @@ export default schemas => {
     req = { ...req, ...matchedData(req) };
 
     if (!errors.isEmpty()) {
-      const mapErrors = Object.entries(errors.mapped()).reduce((accumulator, [key, value]) => {
-        accumulator[key] = value.msg;
-        return accumulator;
-      }, {});
-      response.setError(400, mapErrors);
-      return response.send(res);
+      const mapErrors = Object
+        .entries(errors.mapped())
+        .reduce((accumulator, [key, value]) => {
+          accumulator[key] = value.msg;
+          return accumulator;
+        }, {});
+        return errorResponse(res, 400, 'validation error', mapErrors);
     }
     return next();
   };
