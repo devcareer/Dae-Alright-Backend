@@ -14,11 +14,13 @@ export default {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'createdAt'
     },
     updated_at: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'updatedAt'
     }
   }),
   // eslint-disable-next-line no-unused-vars

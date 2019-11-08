@@ -31,7 +31,7 @@ app.use(router);
 const port = NODE_ENV === 'test' ? 8378 : PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
+  console.log(`Server is running on http://localhost:${port}`);
 });
 
 export default app;

@@ -10,7 +10,7 @@ export default {
     date: {
       type: Sequelize.DATE
     },
-    order_id: {
+    orderId: {
       allowNull: false,
       type: Sequelize.UUID,
       references: {
@@ -20,15 +20,17 @@ export default {
       onUpdate: 'CASCADE',
       field: 'order_id',
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'created_at'
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'updated_at'
     }
   }),
   // eslint-disable-next-line no-unused-vars

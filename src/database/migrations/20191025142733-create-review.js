@@ -16,7 +16,7 @@ export default {
     content: {
       type: Sequelize.TEXT
     },
-    user_id: {
+    userId: {
       allowNull: false,
       type: Sequelize.UUID,
       references: {
@@ -26,7 +26,7 @@ export default {
       onUpdate: 'CASCADE',
       field: 'user_id',
     },
-    vendor_id: {
+    vendorId: {
       allowNull: false,
       type: Sequelize.UUID,
       references: {
@@ -36,15 +36,17 @@ export default {
       onUpdate: 'CASCADE',
       field: 'vendor_id',
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'created_at'
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'updated_at'
     }
   }),
   // eslint-disable-next-line no-unused-vars

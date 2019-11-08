@@ -1,4 +1,4 @@
-export default{
+export default {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Vendors', [{
     name: 'Tunde',
     email: 'demo@demo.com',

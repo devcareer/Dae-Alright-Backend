@@ -2,7 +2,7 @@ import { check } from 'express-validator';
 
 export default {
   signupSchema: [
-    check('first_name')
+    check('firstName')
       .trim()
       .exists()
       .withMessage('first name is required')
@@ -12,7 +12,7 @@ export default {
       .withMessage('first name should only contain alphabets')
       .customSanitizer(value => value.toLowerCase()),
 
-    check('last_name')
+    check('lastName')
       .trim()
       .exists()
       .withMessage('last name is required')

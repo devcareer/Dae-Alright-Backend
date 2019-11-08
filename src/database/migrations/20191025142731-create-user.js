@@ -9,40 +9,43 @@ export default {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('uuid_generate_v4()')
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
-      first_name: {
-        type:Sequelize.STRING,
-      },
-      last_name: {
+      firstName: {
         type: Sequelize.STRING,
+        field: 'first_name'
+      },
+      lastName: {
+        type: Sequelize.STRING,
+        field: 'last_name'
+
       },
       email: {
         type: Sequelize.STRING,
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       address: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
-        field: 'createdAt',
+        field: 'created_at',
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
-        field: 'updatedAt',
-      }
+        field: 'updated_at',
+      },
     });
   },
   // eslint-disable-next-line no-unused-vars
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Users')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Users'),
 };

@@ -5,14 +5,22 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at',
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at',
+    },
   }, {});
 
   Category.associate = (models) => {
-    Category.hasMany(
-      models.Product,
-      { foreignKey: 'categoryId', onDelete: 'NO ACTION' }
-    );
+    Category.hasMany(models.Product, {
+      foreignKey: 'categoryId',
+      onDelete: 'NO ACTION'
+    });
   };
   return Category;
 };

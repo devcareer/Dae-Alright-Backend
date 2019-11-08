@@ -1,8 +1,12 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../../';
+import sinon from 'sinon';
+import app from '../..';
+import database from '../../database/models';
 
-import { user } from '../mocks/user.mock';
+import { user, errUser } from '../mocks/user.mock';
+
+const { User } = database;
 
 describe('Authentication Route', () => {
   context('Signup route', () => {
@@ -17,8 +21,8 @@ describe('Authentication Route', () => {
           expect(message).to.eql('Your account has been created successfully');
           expect(data).to.be.an('object');
           expect(data).to.have.property('user');
-          expect(data.user).to.have.property('first_name');
-          expect(data.user).to.have.property('last_name');
+          expect(data.user).to.have.property('firstName');
+          expect(data.user).to.have.property('lastName');
           expect(data.user).to.have.property('email');
           expect(data.user).to.have.property('phone');
           expect(data.user).to.have.property('address');
@@ -50,9 +54,9 @@ describe('Authentication Route', () => {
           expect(res.status).to.equal(400);
           expect(status).to.eql('error');
           expect(errors.phone).to.eql('enter a valid phone number');
-          expect(errors.first_name)
+          expect(errors.firstName)
             .to.eql('first name should be between 2 to 15 characters');
-          expect(errors.last_name)
+          expect(errors.lastName)
             .to.eql('last name should be between 2 to 15 characters');
           done(err);
         });
@@ -68,6 +72,19 @@ describe('Authentication Route', () => {
           expect(status).to.eql('error');
           expect(errors.email).to.eql('enter a valid email address');
           done(err);
+        });
+    });
+
+    it.skip('should return appropriate status if an error occurs on the server', done => {
+      const stub = sinon.stub(User, 'create').rejects(new Error('server error'));
+      request(app)
+        .post('/auth/signup')
+        .send(errUser)
+        .set('Content-Type', 'application/json')
+        .end((error, res) => {
+          expect(res.status).to.equal(500);
+          stub.restore();
+          done(error);
         });
     });
   });

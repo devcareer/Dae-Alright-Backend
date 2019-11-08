@@ -7,7 +7,7 @@ export default {
       type: Sequelize.UUID,
       defaultValue: Sequelize.literal('uuid_generate_v4()')
     },
-    customer_id: {
+    customerId: {
       allowNull: false,
       type: Sequelize.UUID,
       references: {
@@ -17,7 +17,7 @@ export default {
       onUpdate: 'CASCADE',
       field: 'customer_id',
     },
-    vendor_id: {
+    vendorId: {
       allowNull: false,
       type: Sequelize.UUID,
       references: {
@@ -30,15 +30,17 @@ export default {
     quantity: {
       type: Sequelize.INTEGER
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'created_at'
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'updated_at'
     }
   }),
   // eslint-disable-next-line no-unused-vars

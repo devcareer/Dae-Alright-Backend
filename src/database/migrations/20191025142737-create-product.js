@@ -19,10 +19,11 @@ export default {
     description: {
       type: Sequelize.TEXT
     },
-    image_url: {
-      type: Sequelize.STRING
+    imageUrl: {
+      type: Sequelize.STRING,
+      field: 'image_url'
     },
-    vendor_id: {
+    vendorId: {
       allowNull: false,
       type: Sequelize.UUID,
       references: {
@@ -32,7 +33,7 @@ export default {
       onUpdate: 'CASCADE',
       field: 'vendor_id',
     },
-    category_id: {
+    categoryId: {
       allowNull: false,
       type: Sequelize.UUID,
       references: {
@@ -42,15 +43,17 @@ export default {
       onUpdate: 'CASCADE',
       field: 'category_id',
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'created_at'
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
+      field: 'updated_at'
     }
   }),
   // eslint-disable-next-line no-unused-vars

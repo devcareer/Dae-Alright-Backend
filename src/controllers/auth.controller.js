@@ -1,6 +1,6 @@
+import database from '../database/models';
 import { generateToken } from '../helpers/auth';
 import { successResponse, serverError } from '../helpers/response';
-import database from '../database/models';
 
 const { User } = database;
 
@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
       { user: newUser, token }
     );
   } catch (error) {
-    return serverError();
+    return serverError(error);
   }
 };
 
