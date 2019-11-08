@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 export const successResponse = (res, statusCode, message, data = {}) => {
   return res.status(statusCode).json({ status: 'success', message, data });
 };

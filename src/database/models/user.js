@@ -8,14 +8,28 @@ export default (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
     },
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      field: 'first_name'
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      field: 'last_name'
+    },
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
-    address: DataTypes.TEXT
+    address: DataTypes.TEXT,
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at',
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at',
+    },
   }, {});
 
   User.beforeCreate(async user => {
@@ -30,21 +44,21 @@ export default (sequelize, DataTypes) => {
   User.prototype.getSafeDataValues = function getSafeDataValues() {
     const { password, ...data } = this.dataValues;
     return data;
-  }
+  };
 
   User.prototype.validatePassword = async function validatePassword(password) {
     return bcrypt.compare(password, this.password);
   };
 
-  User.associate = (models) => {
-    User.hasMany(
-      models.Review,
-      { foreignKey: 'userId', onDelete: 'NO ACTION' }
-    );
-    User.hasMany(
-      models.Order,
-      { foreignKey: 'customerId', onDelete: 'NO ACTION' }
-    );
+  User.associate = models => {
+    User.hasMany(models.Review, {
+      foreignKey: 'userId',
+      onDelete: 'NO ACTION'
+    });
+    User.hasMany(models.Order, {
+      foreignKey: 'customerId',
+      onDelete: 'NO ACTION'
+    });
   };
   return User;
 };

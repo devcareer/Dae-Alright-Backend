@@ -1,5 +1,6 @@
-import { errorResponse } from '../helpers/response';
+import jwt from 'jsonwebtoken';
 import database from '../database/models';
+import { errorResponse } from '../helpers/response';
 
 const { User } = database;
 

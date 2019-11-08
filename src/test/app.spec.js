@@ -1,5 +1,5 @@
 import chai from 'chai';
-import app from '../';
+import app from '..';
 
 const { expect } = chai;
 

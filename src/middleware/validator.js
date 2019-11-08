@@ -13,7 +13,7 @@ export default schemas => {
           accumulator[key] = value.msg;
           return accumulator;
         }, {});
-        return errorResponse(res, 400, 'validation error', mapErrors);
+      return errorResponse(res, 400, 'validation error', mapErrors);
     }
     return next();
   };
