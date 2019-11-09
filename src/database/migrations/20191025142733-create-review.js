@@ -5,7 +5,7 @@ export default {
       autoIncrement: false,
       primaryKey: true,
       type: Sequelize.UUID,
-      defaultValue: Sequelize.literal('uuid_generate_v4()')
+      defaultValue: Sequelize.literal('uuid_generate_v4()'),
     },
     ratings: {
       type: Sequelize.INTEGER
@@ -24,6 +24,7 @@ export default {
         key: 'id',
       },
       onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
       field: 'user_id',
     },
     vendorId: {
@@ -33,6 +34,7 @@ export default {
         model: 'Vendors',
         key: 'id',
       },
+      onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       field: 'vendor_id',
     },
@@ -40,13 +42,13 @@ export default {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
-      field: 'created_at'
+      field: 'created_at',
     },
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
-      field: 'updated_at'
+      field: 'updated_at',
     }
   }),
   // eslint-disable-next-line no-unused-vars

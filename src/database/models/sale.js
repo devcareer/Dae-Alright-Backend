@@ -3,25 +3,31 @@ export default (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
     },
-    date: DataTypes.DATE,
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'created_at',
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'updated_at',
     },
   }, {});
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.Order, {
-      foreignKey: 'orderId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'orderId',
+        field: 'order_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
   };
   return Sale;

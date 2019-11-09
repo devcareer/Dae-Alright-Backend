@@ -1,24 +1,78 @@
-export default {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+/* eslint-disable no-unused-vars */
+import uuidv4 from 'uuid/v4';
 
-      Example:
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+export default {
+  up: async (queryInterface, Sequelize) => {
+    const orderId = await queryInterface.rawSelect('Orders', {}, ['id']);
+    if (!orderId) throw new Error("Invalid 'orderId'");
+
+    return queryInterface.bulkInsert(
+      'Sales',
+      [
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          order_id: orderId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        }
+      ],
+      {}
+    );
   },
 
-  down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
-  }
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Sales', null, {})
 };

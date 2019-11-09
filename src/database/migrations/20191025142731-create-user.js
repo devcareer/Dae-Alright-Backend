@@ -13,12 +13,11 @@ export default {
       },
       firstName: {
         type: Sequelize.STRING,
-        field: 'first_name'
+        field: 'first_name',
       },
       lastName: {
         type: Sequelize.STRING,
-        field: 'last_name'
-
+        field: 'last_name',
       },
       email: {
         type: Sequelize.STRING,

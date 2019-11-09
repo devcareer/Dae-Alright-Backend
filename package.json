@@ -25,6 +25,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo:all",
+    "db:seed": "sequelize db:seed:all",
     "db:reset": "npm run db:migrate:undo && npm run db:migrate",
     "dev": "nodemon --exec babel-node ./src/index.js",
     "lint": "eslint \"**/*.js\"",
