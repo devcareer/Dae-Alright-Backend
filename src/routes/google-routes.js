@@ -1,21 +1,16 @@
 /* eslint-disable linebreak-style */
-import passportGoogle from '../../../../src/config/google-passport-config';
+import passportGoogle from '../config/passport-config/google-passport-config';
 import { Router } from 'express';
-import { generateToken } from '../../../../src/helpers/auth';
+import { googleOAuth, secretRoute } from '../controllers/auth.controller';
+import passport from '../config/passport-config/google-passport-config';
 
 const router = Router();
 
-const generateUserToken = (req, res) => {
-  const user =req.user.dataValues;
-  const token = 'JWT ' + generateToken(user);
-   res.send(token);
-}
-// authenticate with google
 router.get(
   '/',
   passportGoogle.authenticate('google', { session: false,
-    scope: ['profile', 'email'],
-  })
+    scope: ['profile', 'email'], 
+  }) 
 
 );
 
@@ -23,9 +18,10 @@ router.get(
 router.get(
   '/redirect',
   passportGoogle.authenticate('google', { session: false,
-    // successRedirect: '/',
-    // failureRedirect: '/signup',
-  }), generateUserToken
+    failureRedirect: '/',
+  }), googleOAuth
 );
+
+router.get('/secret', passport.authenticate('jwt', { session: false }), secretRoute);
 
 export default router;

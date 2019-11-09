@@ -1,10 +1,10 @@
-import dotenv from 'dotenv';
+import { config } from 'dotenv';
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
-import { User } from '../database/models';
+import { User } from '../../database/models';
 import { findBySocialID } from './config';
 
-dotenv.config();
+config();
 
 passport.use(
   new FacebookStrategy.Strategy(
@@ -15,7 +15,8 @@ passport.use(
       profileFields: ['id', 'emails', 'name']
     },
     (accessToken, refreshToken, profile, done) => {
-      findBySocialID(profile.id, 'facebook')
+      try {
+        findBySocialID(profile.id, 'facebook')
         .then(async currentUser => {
           if(currentUser){
             console.log('user exists');
@@ -34,6 +35,10 @@ passport.use(
             return done(null, user);
           }
         })
+
+      }catch(err){
+        return done(err, false);
+      }
     }
   )
 );

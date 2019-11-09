@@ -1,10 +1,12 @@
-import dotenv from 'dotenv';
+import { config } from 'dotenv';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
-import { User } from '../database/models';
+import database from '../../database/models';
+
+const { User } = database;
 
 import { findBySocialID } from './config';
-dotenv.config();
+config();
 
 passport.use(
   new GoogleStrategy(
@@ -15,7 +17,8 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
     (accessToken, refreshToken, profile, done) => {
-      findBySocialID(profile.id, 'google')
+      try{
+        findBySocialID(profile.id, 'google')
         .then(async currentUser => {
           if(currentUser){
             console.log('user exists');
@@ -34,6 +37,10 @@ passport.use(
             return done(null, user);
           }
         })
+      }
+      catch(err){
+        done(err, false)
+      }
     }
   )
 );

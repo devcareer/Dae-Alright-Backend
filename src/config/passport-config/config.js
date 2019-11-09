@@ -1,29 +1,30 @@
 import passport from 'passport';
-import { User } from '../database/models';
+import database from '../../database/models';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+
+const { User } = database;
 
 export const findBySocialID = async (socialID, provider) => await User.findOne({where: {socialID, provider }})
 
 const options = {
     // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+    jwtFromRequest: ExtractJwt.fromHeader('authorization'),
     secretOrKey: process.env.JWT_KEY,
-    issuer: 'dae-alright',
-    audience: 'dae-alright-public'
+    // issuer: 'dae-alright',
+    // audience: 'dae-alright-public'
 }
 
 passport.use(new Strategy(options, (jwt_payload, done) => {
-    console.log(jwt_payload, 'bb');
-    User.findOne({ where: {id: jwt_payload._id}}, (err, user) => {
-        if(err) {
-            console.log('a')
-            return done(err, false);
+    console.log('bb', jwt_payload);
+    User.findOne({ where: {socialID: jwt_payload.socialID, provider: jwt_payload.provider}}
+    ).then(user => {
+        if (user) {
+          done(null, user);
+        } else {
+          done(null, false);
         }
-        if(user){
-            console.log('b')
-            return done(null, user, payload);
-        }
-        console.log('c')
-        return done();
-    })
+      })
+      .catch(err => {
+        if (err) { return done(err, false); }
+      });
 }))

@@ -1,8 +1,9 @@
 /* eslint-disable linebreak-style */
-import passportFacebook from '../../../../src/config/facebook-passport-config';
+import passportFacebook from '../config/passport-config/facebook-passport-config';
+import { googleOAuth } from '../controllers/auth.controller'
 import { Router } from 'express';
 
-import { generateToken } from '../../../../src/helpers/auth';
+import { generateToken } from '../helpers/auth';
 
 const router = Router();
 
