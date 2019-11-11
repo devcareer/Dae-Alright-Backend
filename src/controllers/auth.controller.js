@@ -1,6 +1,6 @@
 import database from '../database/models';
 import { generateToken } from '../helpers/auth';
-import { successResponse, serverError } from '../helpers/response';
+import { successResponse, serverError, errorResponse } from '../helpers/response';
 
 const { User } = database;
 
@@ -28,15 +28,21 @@ const createUser = async (req, res) => {
   }
 };
 
-const googleOAuth = async(req, res, next) => {
-  // console.log('req.user', req.user || req.user.dataValues);
-  const token = generateToken(req.user.dataValues || req.user).split(' ')[1];
-  res.status(200).json({token});
+const socialOAuth = async(req, res, next) => {
+  try {
+    // console.log('req.user', req.user || req.user.dataValues);
+    const user = req.user || req.user.dataValues;
+    const token = generateToken(req.user.dataValues || req.user);
+    const statusCode = req.user.dataValues ? 200 : 201;
+    return successResponse(res, statusCode, 'Signed in', {token, user})
+  }catch(err){
+    return errorResponse(res, 400, err.message);
+  }
+  
 }
 
 const secretRoute = async(req, res, next) => {
-  // console.log(res)
   res.json({secret: 'Protected route'})
 }
 
-export { createUser, googleOAuth, secretRoute };
+export { createUser, socialOAuth, secretRoute };

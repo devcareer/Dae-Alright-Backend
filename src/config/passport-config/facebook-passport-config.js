@@ -1,8 +1,10 @@
 import { config } from 'dotenv';
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
-import { User } from '../../database/models';
+import database from '../../database/models';
 import { findBySocialID } from './config';
+
+const { User } = database;
 
 config();
 
@@ -16,6 +18,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       try {
+        console.log(profile);
         findBySocialID(profile.id, 'facebook')
         .then(async currentUser => {
           if(currentUser){
@@ -25,12 +28,13 @@ passport.use(
             const user = {
               socialID: profile.id,
               provider: 'facebook',
-              firstName: profile.name.givenName,
-              lastName: profile.name.familyName,
-              email: profile.emails[0].value,
+              firstName: profile._json.first_name,
+              lastName: profile._json.last_name,
+              email: profile._json.email || null,
               phone: '',
               address: ''
             }
+            
             await User.create(user);
             return done(null, user);
           }

@@ -145,7 +145,156 @@
                 }
             }
 
+        },
+        "/auth/google": {
+            "get": {
+                "tags": ["users"],
+                "summary": "sign up/in with google",
+                "description": "allows a user sign up or sign in to use the app with google oauth 2.0",
+                "operationID": "googleSignIn",
+                "responses": {
+                    "200": {
+                        "description": "user is signed in but already exists in the database",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "description": "the authentication token"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "description": "the user object"
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    },
+                    "201": {
+                        "description": "user is signed in and added to the database",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "description": "the authentication token"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "description": "the user object",
+                                            
+                                            "schema": {
+                                                "$ref": "#/components/schemas/User"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "wrong access token or parameter",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "error message"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            
+        },
+        "/auth/facebook": {
+            "get": {
+                "tags": ["users"],
+                "summary": "sign up/in with facebook",
+                "description": "allows a user sign up or sign in to use the app with facebook oauth",
+                "operationID": "facebookSignIn",
+                "responses": {
+                    "200": {
+                        "description": "user is signed in but already exists in the database",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "description": "the authentication token"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "description": "the user object"
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    },
+                    "201": {
+                        "description": "user is signed in and added to the database",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "description": "the authentication token"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "description": "the user object",
+                                            
+                                            "schema": {
+                                                "$ref": "#/components/schemas/User"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "wrong access token or parameter",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "error message"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            
         }
+
     },
     "components": {
         "schemas": {

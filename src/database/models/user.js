@@ -49,7 +49,7 @@ export default (sequelize, DataTypes) => {
   };
 
   User.prototype.getSafeDataValues = function getSafeDataValues() {
-    const { password, ...data } = this.dataValues;
+    const { password, socialID, provider,  ...data } = this.dataValues;
     return data;
   };
 
