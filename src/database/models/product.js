@@ -3,10 +3,11 @@ export default (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
     },
     name: DataTypes.STRING,
-    price: DataTypes.INTEGER,
+    price: DataTypes.FLOAT,
     quantity: DataTypes.INTEGER,
     description: DataTypes.TEXT,
     imageUrl: {
@@ -16,29 +17,46 @@ export default (sequelize, DataTypes) => {
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'created_at',
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'updated_at',
     },
   }, {});
 
   Product.associate = (models) => {
     Product.belongsTo(models.Category, {
-      foreignKey: 'categoryId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'categoryId',
+        field: 'category_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
     Product.belongsToMany(models.Order, {
-      through: 'OrderProduct',
-      foreignKey: 'productId',
-      otherKey: 'orderId',
-      onDelete: 'NO ACTION'
+      through: models.OrderProduct,
+      foreignKey: {
+        name: 'productId',
+        field: 'product_id',
+      },
+      otherKey: {
+        name: 'orderId',
+        field: 'order_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
     Product.belongsTo(models.Vendor, {
-      foreignKey: 'vendorId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'vendorId',
+        field: 'vendor_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
   };
   return Product;

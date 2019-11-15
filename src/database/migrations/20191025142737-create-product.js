@@ -2,7 +2,6 @@ export default {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Products', {
     id: {
       allowNull: false,
-      autoIncrement: false,
       primaryKey: true,
       type: Sequelize.UUID,
       defaultValue: Sequelize.literal('uuid_generate_v4()')
@@ -11,7 +10,7 @@ export default {
       type: Sequelize.STRING
     },
     price: {
-      type: Sequelize.INTEGER
+      type: Sequelize.FLOAT
     },
     quantity: {
       type: Sequelize.INTEGER
@@ -31,6 +30,7 @@ export default {
         key: 'id',
       },
       onUpdate: 'CASCADE',
+      onDelete: 'NO ACTION',
       field: 'vendor_id',
     },
     categoryId: {
@@ -41,6 +41,7 @@ export default {
         key: 'id',
       },
       onUpdate: 'CASCADE',
+      onDelete: 'NO ACTION',
       field: 'category_id',
     },
     createdAt: {

@@ -5,10 +5,7 @@ export default {
       autoIncrement: false,
       primaryKey: true,
       type: Sequelize.UUID,
-      defaultValue: Sequelize.literal('uuid_generate_v4()')
-    },
-    date: {
-      type: Sequelize.DATE
+      defaultValue: Sequelize.literal('uuid_generate_v4()'),
     },
     orderId: {
       allowNull: false,
@@ -18,6 +15,7 @@ export default {
         key: 'id',
       },
       onUpdate: 'CASCADE',
+      onDelete: 'NO ACTION',
       field: 'order_id',
     },
     createdAt: {

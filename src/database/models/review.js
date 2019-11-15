@@ -3,7 +3,8 @@ export default (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
     },
     ratings: DataTypes.INTEGER,
     title: DataTypes.TEXT,
@@ -11,23 +12,33 @@ export default (sequelize, DataTypes) => {
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'created_at',
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'updated_at',
     },
   }, {});
 
   Review.associate = (models) => {
     Review.belongsTo(models.User, {
-      foreignKey: 'userId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'userId',
+        field: 'user_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
     Review.belongsTo(models.Vendor, {
-      foreignKey: 'vendorId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'vendorId',
+        field: 'vendor_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
   };
   return Review;

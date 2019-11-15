@@ -1,24 +1,89 @@
-export default {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+/* eslint-disable no-unused-vars */
+import uuidv4 from 'uuid/v4';
 
-      Example:
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+export default {
+  up: async (queryInterface, Sequelize) => {
+    const vendorId = await queryInterface.rawSelect('Vendors', {}, ['id']);
+    const customerId = await queryInterface.rawSelect('Users', {}, ['id']);
+    if (!(vendorId && customerId)) throw new Error("Invalid 'vendorId' or 'customerId'");
+
+    return queryInterface.bulkInsert(
+      'Orders',
+      [
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          id: uuidv4(),
+          vendor_id: vendorId,
+          customer_id: customerId,
+          created_at: new Date(),
+          updated_at: new Date(),
+        }
+      ],
+      {}
+    );
   },
 
-  down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
-  }
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Orders', null, {})
 };
