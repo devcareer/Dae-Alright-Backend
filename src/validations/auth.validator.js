@@ -47,6 +47,20 @@ export default {
     check('address')
       .optional()
       .trim()
-      .customSanitizer(value => value.toLowerCase()),
+      .customSanitizer(value => value.toLowerCase())
   ],
+
+  signinSchema: [
+    check('email')
+      .trim()
+      .exists().withMessage('Email address is required')
+      .customSanitizer(email => email.toLowerCase()),
+
+    check('password')
+      .trim()
+      .exists()
+      .withMessage('Password is required')
+      .isLength({ min: 8, max: 15 })
+      .withMessage('Password should be between 8 to 15 characters')
+  ]
 };

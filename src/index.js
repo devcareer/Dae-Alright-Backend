@@ -10,18 +10,13 @@ import router from './routes';
 config();
 
 const app = express();
-const corsOptions = {
-  credentials: true,
-  origin: [],
-  optionsSuccessStatus: 200, // legacy browsers (IE11, various SmartTVs) choke on 204
-};
 
 const { NODE_ENV, PORT } = process.env;
 if (NODE_ENV === 'development' || NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 

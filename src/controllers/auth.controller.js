@@ -1,6 +1,6 @@
 import database from '../database/models';
 import { generateToken } from '../helpers/auth';
-import { successResponse, serverError, errorResponse } from '../helpers/response';
+import { errorResponse, successResponse, serverError } from '../helpers/response';
 
 const { User } = database;
 
@@ -11,7 +11,7 @@ const { User } = database;
  * @param {obj} res The response object
  * @returns {json} The response from db or error.
  */
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
     const newUser = await user.getSafeDataValues();
@@ -44,5 +44,31 @@ const socialOAuth = async(req, res, next) => {
 const secretRoute = async(req, res, next) => {
   res.json({secret: 'Protected route'})
 }
+
+/**
+ * Login a user successfully
+ *
+ * @param {obj} req The request object
+ * @param {obj} res The response object
+ * @returns {json} The response from db or error.
+ */
+export const signin = async (req, res) => {
+  const { password, email } = req.body;
+
+  const getUser = await User.findOne({ where: { email } });
+  if (!getUser) {
+    return errorResponse(res, 400, 'Email/Password incorrect');
+  }
+
+  const comparePassword = await getUser.validatePassword(password);
+  if (!comparePassword) {
+    return errorResponse(res, 400, 'Email/Password incorrect');
+  }
+
+  const token = generateToken({ email });
+  const user = await getUser.getSafeDataValues();
+
+  return successResponse(res, 200, 'Login successful', { user, token });
+};
 
 export { createUser, socialOAuth, secretRoute };

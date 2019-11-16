@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 config();
 
-export const generateToken = (payload) => {
-  const token = jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '24h' });
+export const generateToken = ({ id, email }) => {
+  const token = jwt.sign({ id, email }, process.env.JWT_KEY, { expiresIn: '24h' });
   return `Bearer ${token}`;
 };

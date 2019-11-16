@@ -4,34 +4,51 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
     },
-    quantity: DataTypes.INTEGER,
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'created_at',
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'updated_at',
     },
   }, {});
 
   Order.associate = models => {
     Order.belongsTo(models.User, {
-      foreignKey: 'customerId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'customerId',
+        field: 'customer_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
     Order.belongsTo(models.Vendor, {
-      foreignKey: 'vendorId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'vendorId',
+        field: 'vendor_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
     Order.belongsToMany(models.Product, {
-      through: 'OrderProduct',
-      foreignKey: 'orderId',
-      otherKey: 'productId',
+      through: models.OrderProduct,
+      foreignKey: {
+        name: 'orderId',
+        field: 'order_id',
+      },
+      otherKey: {
+        name: 'productId',
+        field: 'product_id',
+      },
       onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
   };
   return Order;

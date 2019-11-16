@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
     },
     socialID: {
       type: DataTypes.STRING,
@@ -29,10 +30,12 @@ export default (sequelize, DataTypes) => {
     address: DataTypes.TEXT,
     createdAt: {
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'created_at',
     },
     updatedAt: {
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       field: 'updated_at',
     },
   }, {});
@@ -59,12 +62,20 @@ export default (sequelize, DataTypes) => {
 
   User.associate = models => {
     User.hasMany(models.Review, {
-      foreignKey: 'userId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'userId',
+        field: 'user_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
     User.hasMany(models.Order, {
-      foreignKey: 'customerId',
-      onDelete: 'NO ACTION'
+      foreignKey: {
+        name: 'customerId',
+        field: 'customer_id',
+      },
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     });
   };
   return User;

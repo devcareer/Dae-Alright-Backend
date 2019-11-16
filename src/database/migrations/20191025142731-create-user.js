@@ -17,7 +17,7 @@ export default {
       },
       firstName: {
         type: Sequelize.STRING,
-        field: 'first_name'
+        field: 'first_name',
       },
       lastName: {
         type: Sequelize.STRING,

@@ -63,3 +63,7 @@ typings/
 build/
 docs/Dae-Alright.postman_collection.json
 package-lock.json
+
+#local test files. May be deleted if causing conflict
+src/test/dbtest.js
+src/test/query.js

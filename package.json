@@ -25,12 +25,13 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo:all",
+    "db:seed": "sequelize db:seed:all",
     "db:reset": "npm run db:migrate:undo && npm run db:migrate",
     "dev": "nodemon --exec babel-node ./src/index.js",
     "lint": "eslint \"**/*.js\"",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "start": "node ./build/index.js",
-    "test": "cross-env NODE_ENV=test nyc mocha ./src/test -r @babel/register --recursive -t 1000 --exit"
+    "test": "cross-env NODE_ENV=test nyc mocha ./src/test"
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
@@ -72,7 +73,6 @@
     "nodemon": "^1.19.4",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
-    "sinon": "^7.5.0",
     "supertest": "^4.0.2"
   }
 }
