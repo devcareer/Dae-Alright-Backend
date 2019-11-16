@@ -1,12 +1,8 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import sinon from 'sinon';
 import app from '../..';
-import database from '../../database/models';
 
-import { user, errUser } from '../mocks/user.mock';
-
-const { User } = database;
+import { user } from '../mocks/user.mock';
 
 describe('Authentication Route', () => {
   context('Signup route', () => {
@@ -74,17 +70,36 @@ describe('Authentication Route', () => {
           done(err);
         });
     });
+  });
 
-    it.skip('should return appropriate status if an error occurs on the server', done => {
-      const stub = sinon.stub(User, 'create').rejects(new Error('server error'));
+  context('Signin route', () => {
+    it('should successfully POST to signin route', (done) => {
       request(app)
-        .post('/auth/signup')
-        .send(errUser)
-        .set('Content-Type', 'application/json')
-        .end((error, res) => {
-          expect(res.status).to.equal(500);
-          stub.restore();
-          done(error);
+        .post('/auth/signin')
+        .send({ email: user.email, password: user.password })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done(err);
+        });
+    });
+
+    it('should throw an error if email does not exist (incorrect)', (done) => {
+      request(app)
+        .post('/auth/signin')
+        .send({ email: 'john@doe.com', password: user.password })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done(err);
+        });
+    });
+
+    it('should throw an error if password is incorrect', (done) => {
+      request(app)
+        .post('/auth/signin')
+        .send({ email: user.email, password: 'saligia199323' })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done(err);
         });
     });
   });
