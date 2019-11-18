@@ -24,11 +24,12 @@ export default {
 
     check('email')
       .trim()
-      .exists()
-      .withMessage('email address is required')
+      .not()
+      .isEmpty({ ignore_whitespace: true })
+      .withMessage('Email address is required')
       .isEmail()
-      .withMessage('enter a valid email address')
-      .customSanitizer(value => value.toLowerCase()),
+      .withMessage('email is not valid')
+      .customSanitizer(email => email.toLowerCase()),
 
     check('password')
       .trim()
@@ -47,13 +48,17 @@ export default {
     check('address')
       .optional()
       .trim()
-      .customSanitizer(value => value.toLowerCase())
+      .customSanitizer(value => value.toLowerCase()),
   ],
 
   signinSchema: [
     check('email')
       .trim()
-      .exists().withMessage('Email address is required')
+      .not()
+      .isEmpty({ ignore_whitespace: true })
+      .withMessage('Email address is required')
+      .isEmail()
+      .withMessage('email is not valid')
       .customSanitizer(email => email.toLowerCase()),
 
     check('password')
@@ -61,6 +66,6 @@ export default {
       .exists()
       .withMessage('Password is required')
       .isLength({ min: 8, max: 15 })
-      .withMessage('Password should be between 8 to 15 characters')
-  ]
+      .withMessage('Password should be between 8 to 15 characters'),
+  ],
 };
