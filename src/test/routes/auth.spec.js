@@ -66,7 +66,7 @@ describe('Authentication Route', () => {
           const { status, errors } = res.body;
           expect(res.status).to.equal(400);
           expect(status).to.eql('error');
-          expect(errors.email).to.eql('enter a valid email address');
+          expect(errors.email).to.eql('email is not valid');
           done(err);
         });
     });
