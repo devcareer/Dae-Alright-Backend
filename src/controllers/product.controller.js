@@ -1,5 +1,5 @@
 import sequelize from "sequelize";
-import {elasticsearch} from elasticsearch
+import elasticsearch from "elasticsearch";
 import {trueOffset} from "../helpers/search";
 import database from "../database/models";
 import { successResponse, serverError, errorResponse } from "../helpers/response";
