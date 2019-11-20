@@ -1,11 +1,11 @@
 import sequelize from "sequelize";
-import {client, trueOffset} from "../helpers/search";
+import {Client, trueOffset} from "../helpers/search";
 import database from "../database/models";
 import { successResponse, serverError, errorResponse } from "../helpers/response";
 
 
 const {Product} = database;
-const client = client();
+const client = Client();
 const Sequelize = sequelize;
 const Op = Sequelize.Op();
 

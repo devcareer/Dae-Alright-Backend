@@ -1,6 +1,6 @@
 import {elasticsearch} from elasticsearch
 
-export const client = new elasticsearch.Client({
+export const Client = new elasticsearch.Client({
     host: "localhost:9200",
     log: "trace"
 })
