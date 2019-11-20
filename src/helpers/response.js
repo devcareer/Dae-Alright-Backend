@@ -4,12 +4,12 @@ export const successResponse = (res, statusCode, message, data = {}) => {
 };
 
 export const errorResponse = (res, statusCode, message, errors = {}) => {
-  return res.status(statusCode).json({ status: 'error', message, errors, });
+  return res.status(statusCode).json({ status: statusCode, message, errors, });
 };
 
 export const serverError = (res, statusCode = 500) => {
   return res.status(statusCode).json({
-    status: 'error',
+    status: statusCode,
     message: 'Your request cannot be processed at this time. Please try again later.',
   });
 };
