@@ -1,13 +1,18 @@
 import sequelize from "sequelize";
-import {Client, trueOffset} from "../helpers/search";
+import {elasticsearch} from elasticsearch
+import {trueOffset} from "../helpers/search";
 import database from "../database/models";
 import { successResponse, serverError, errorResponse } from "../helpers/response";
 
 
 const {Product} = database;
-const client = Client();
 const Sequelize = sequelize;
 const Op = Sequelize.Op();
+
+const client = new elasticsearch.Client({
+    host: "localhost:9200",
+    log: "trace"
+})
 
 export const createProduct = async (req, res)=>{
     try {
@@ -39,11 +44,11 @@ export const createProduct = async (req, res)=>{
                     id:req.body.id,
                     index: "product",
                     body : {
-                        "name" : name,
-                        "price" : price,
-                        "quantity" : quantity,
-                        "description" : description,
-                        "imageUrl" : imageUrl 
+                        name : name,
+                        price : price,
+                        quantity : quantity,
+                        description : description,
+                        imageUrl : imageUrl 
                     }
                 })
             })();
@@ -151,13 +156,13 @@ export const updateProduct = (req, res)=>{
         client.updateByQuery({
             index: "product",
             body: { 
-              "query": { "match": { "id": req.params.id } }, 
-              "doc": { 
-                  "name":updatedItem.name,
-                  "price":updatedItem.price,
-                  "quantity":updatedItem.quantity,
-                  "description":updatedItem.description,
-                  "imageUrl":updatedItem.imageUrl,
+              query: { match: { id: req.params.id } }, 
+              doc: { 
+                  name: updatedItem.name,
+                  price: updatedItem.price,
+                  quantity: updatedItem.quantity,
+                  description: updatedItem.description,
+                  imageUrl: updatedItem.imageUrl,
                 }
            }
         })
@@ -176,9 +181,9 @@ export const deleteProduct = async (req, res)=>{
             client.deleteByQuery({
                 index:"product",
                 body:{
-                    "query":{
-                        "match":{
-                            "id": req.params.product_id
+                    query:{
+                        match:{
+                            id: req.params.product_id
                         }
                     }
                 }

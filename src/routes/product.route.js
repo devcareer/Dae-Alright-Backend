@@ -1,15 +1,8 @@
 import {Router} from "express"
 import {getAllProduct, createProduct,
         getProduct, deleteProduct, updateProduct} from "../controllers/product.controller"
-import {client, eSearch, Index} from "../helpers/search";
 
 productRoute = Router();
-const client = client();
-
-eSearch(30000)
-
-//do not rename this created index
-Index("product")
 
 
 productRoute.get("/:restaurant_name/product", getAllProduct);
