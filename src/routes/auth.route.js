@@ -1,24 +1,37 @@
 import { Router } from 'express';
 import authentication from '../middleware/auth';
 import authSchemas from '../validations/auth.validator';
-import { createUser, signin } from '../controllers/auth.controller';
+import { createClient, signin } from '../controllers/auth.controller';
 import validator from '../middleware/validator';
 
 
-const { checkExistingUser } = authentication;
-const { signupSchema, signinSchema } = authSchemas;
+const { checkExistingClient } = authentication;
+const { userSignupSchema, vendorSignupSchema, signinSchema } = authSchemas;
 
 const authRoute = Router();
 
 authRoute.post(
-  '/signup',
-  validator(signupSchema),
-  checkExistingUser,
-  createUser
+  '/user/signup',
+  validator(userSignupSchema),
+  checkExistingClient,
+  createClient
 );
 
 authRoute.post(
-  '/signin',
+  '/user/signin',
+  validator(signinSchema),
+  signin
+);
+
+authRoute.post(
+  '/vendor/signup',
+  validator(vendorSignupSchema),
+  checkExistingClient,
+  createClient
+);
+
+authRoute.post(
+  '/vendor/signin',
   validator(signinSchema),
   signin
 );

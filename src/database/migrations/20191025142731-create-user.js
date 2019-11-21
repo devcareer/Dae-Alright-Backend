@@ -1,8 +1,6 @@
 export default {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface
-      .sequelize
-      .query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+    await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
     return queryInterface.createTable('Users', {
       id: {
@@ -11,6 +9,10 @@ export default {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
+      socialID: {
+        type: Sequelize.STRING,
+        field: 'social_id',
+      },
       firstName: {
         type: Sequelize.STRING,
         field: 'first_name',
@@ -18,6 +20,9 @@ export default {
       lastName: {
         type: Sequelize.STRING,
         field: 'last_name',
+      },
+      provider: {
+        type: Sequelize.STRING,
       },
       email: {
         type: Sequelize.STRING,
