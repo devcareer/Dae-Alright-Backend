@@ -17,14 +17,24 @@ export const createUser = async (req, res) => {
     const newUser = await user.getSafeDataValues();
     const token = generateToken(newUser);
 
-    return successResponse(
-      res,
-      201,
-      'Your account has been created successfully',
-      { user: newUser, token }
-    );
+    return successResponse(res, 201, 'Your account has been created successfully', {
+      user: newUser,
+      token,
+    });
   } catch (error) {
     return serverError(error);
+  }
+};
+
+export const socialOAuth = async (req, res) => {
+  try {
+    const user = req.user || req.user.dataValues;
+    const token = generateToken(req.user.dataValues || req.user);
+    const statusCode = req.user.dataValues ? 200 : 201;
+    const message = req.user.dataValues ? 'Signed in' : 'Registered';
+    return successResponse(res, statusCode, message, { token, user });
+  } catch (err) {
+    return errorResponse(res, 400, err.message);
   }
 };
 
