@@ -88,7 +88,7 @@ export const getProduct = async (req, res)=>{
            try{
                const products = Product.findAll({
                    where:{
-                       [Op.or]:[{id: req.params.id},
+                       [Op.or]:[{id: req.params.product_id},
                                 {name: req.query.name},
                                 {price: req.query.price},
                                 {
@@ -141,7 +141,7 @@ export const updateProduct = (req, res)=>{
     const newUpdatedAt = new Date.now();
     const image = req.file;
 
-    Product.findById(req.params.id)
+    Product.findById(req.params.product_id)
     .then((prod)=>{
         prod.name = newName
         prod.price = newPrice
@@ -156,7 +156,7 @@ export const updateProduct = (req, res)=>{
         client.updateByQuery({
             index: "product",
             body: { 
-              query: { match: { id: req.params.id } }, 
+              query: { match: { id: req.params.product_id } }, 
               doc: { 
                   name: updatedItem.name,
                   price: updatedItem.price,
