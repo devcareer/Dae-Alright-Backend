@@ -1,11 +1,12 @@
 import passport from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import database from '../../database/models';
+import { account } from '../../controllers/auth.controller';
 
-const { User } = database;
+const { User, Vendor } = database;
 
-export const findBySocialID = async (socialID, provider) => User.findOne({
-  where: { socialID, provider }
+export const findBySocialID = async (socialID, provider, table) => table.findOne({
+  where: { socialID, provider },
 });
 
 const options = {
@@ -14,7 +15,8 @@ const options = {
 };
 
 passport.use(new Strategy(options, (jwtPayload, done) => {
-  User.findOne({ where: { socialID: jwtPayload.socialID, provider: jwtPayload.provider } })
+  const table = account === 'user' ? User : Vendor;
+  table.findOne({ where: { socialID: jwtPayload.socialID, email: jwtPayload.email } })
     .then(user => {
       if (user) {
         done(null, user);
