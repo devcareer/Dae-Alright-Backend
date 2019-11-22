@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import database from '../database/models';
 import { errorResponse } from '../helpers/response';
 
-const { User } = database;
+const { User, Vendor } = database;
 
 /**
  * Check if user already exists
@@ -13,16 +13,18 @@ const { User } = database;
  * @returns {Function} response
  */
 export default {
-  checkExistingUser: async (req, res, next) => {
+  checkExistingClient: async (req, res, next) => {
+    const role = req.url.split('/')[1];
     const { email } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (user) {
-      return errorResponse(res, 409, 'user already exist');
+    const client = role === 'user' ? await User.findOne({ where: { email } }) : await Vendor.findOne({ where: { email } });
+    if (client) {
+      return errorResponse(res, 409, `${role} already exist`);
     }
     return next();
   },
 
   checkToken: (req, res, next) => {
+    const role = req.url.split('/')[1];
     let token = req.headers['x-access-token'] || req.headers.authorization;
     if (token.startsWith('Bearer ')) {
       token = token.slice(7, token.length);
@@ -30,7 +32,7 @@ export default {
 
     if (token) {
       const { JWT_KEY } = process.env;
-      jwt.verify(token, JWT_KEY, (err, user) => {
+      jwt.verify(token, JWT_KEY, (err, client) => {
         if (err) {
           return errorResponse(
             res,
@@ -38,7 +40,7 @@ export default {
             'Invalid token, please provide a valid token'
           );
         }
-        req.user = user;
+        req[role] = client;
         next();
       });
     }
