@@ -25,7 +25,7 @@ export const createClient = async (req, res) => {
       { [role]: newClient, token }
     );
   } catch (error) {
-    return serverError(error);
+    return serverError(res);
   }
 };
 
