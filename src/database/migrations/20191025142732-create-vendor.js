@@ -7,8 +7,15 @@ export default {
       type: Sequelize.UUID,
       defaultValue: Sequelize.literal('uuid_generate_v4()'),
     },
+    socialID: {
+      type: Sequelize.STRING,
+      field: 'social_id',
+    },
     name: {
       type: Sequelize.STRING
+    },
+    provider: {
+      type: Sequelize.STRING,
     },
     email: {
       type: Sequelize.STRING,
