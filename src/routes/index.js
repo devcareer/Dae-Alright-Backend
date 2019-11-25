@@ -13,7 +13,7 @@ routes.use('/auth/facebook', facebookRoute);
 routes.use('/auth', authRoute);
 
 
-routes.use('/search', getProduct);
+routes.get('/search', getProduct);
 routes.use('/:restaurant_name', productRoute);
 
 export default routes;
