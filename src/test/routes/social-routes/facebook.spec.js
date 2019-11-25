@@ -23,7 +23,7 @@ describe('facebook login', () => {
   });
   it('should redirect vendor to facebook request', done => {
     request(app)
-      .get('/auth/facebook/user')
+      .get('/auth/facebook/vendor')
       .end((err, res) => {
         expect(res.status).to.equal(302);
         expect(res.headers.location).to.include('https://www.facebook.com/v3.2/dialog/oauth?response_type=code');

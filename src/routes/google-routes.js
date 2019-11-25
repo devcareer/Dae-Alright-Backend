@@ -10,7 +10,6 @@ router.get(
     session: false,
     scope: ['profile', 'email'],
   })
-
 );
 
 router.get(
@@ -19,7 +18,6 @@ router.get(
     session: false,
     scope: ['profile', 'email'],
   })
-
 );
 
 // callback route for google
