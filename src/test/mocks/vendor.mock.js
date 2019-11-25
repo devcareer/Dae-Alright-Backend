@@ -1,5 +1,5 @@
 const vendor = {
-  name: 'DevCareer',
+  name: 'Dev Career',
   email: 'devcareervendor@africa.io',
   password: '123456789',
   phone: '08067490432',
