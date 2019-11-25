@@ -11,6 +11,10 @@ export default (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
     },
+    socialID: {
+      type: DataTypes.STRING,
+      field: 'social_id'
+    },
     firstName: {
       type: DataTypes.STRING,
       field: 'first_name'
@@ -19,6 +23,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       field: 'last_name'
     },
+    provider: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
@@ -40,8 +45,10 @@ export default (sequelize, DataTypes) => {
   });
 
   User.prototype.generatePasswordHash = async function generatePasswordHash() {
-    const saltRounds = +process.env.SALT;
-    return bcrypt.hash(this.password, saltRounds);
+    if (!this.provider) {
+      const saltRounds = +process.env.SALT;
+      return bcrypt.hash(this.password, saltRounds);
+    }
   };
 
   User.prototype.getSafeDataValues = function getSafeDataValues() {

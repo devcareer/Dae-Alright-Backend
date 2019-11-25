@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import { config } from 'dotenv';
 import cors from 'cors';
 import express from 'express';
