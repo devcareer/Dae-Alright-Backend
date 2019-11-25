@@ -29,12 +29,18 @@ export const createClient = async (req, res) => {
   }
 };
 
+export let account;
+export const findRole = (req, res, next) => {
+  account = req.url.split('/')[1];
+  next();
+};
+
 export const socialOAuth = async (req, res) => {
   try {
     const user = req.user || req.user.dataValues;
     const token = generateToken(req.user.dataValues || req.user);
     const statusCode = req.user.dataValues ? 200 : 201;
-    const message = req.user.dataValues ? 'Signed in' : 'Registered';
+    const message = req.user.dataValues ? 'Logged in' : 'Account Created';
     return successResponse(res, statusCode, message, { token, user });
   } catch (err) {
     return errorResponse(res, 400, err.message);

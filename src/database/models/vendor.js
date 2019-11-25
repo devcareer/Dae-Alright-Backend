@@ -37,8 +37,10 @@ export default (sequelize, DataTypes) => {
   });
 
   Vendor.prototype.generatePasswordHash = async function generatePasswordHash() {
-    const saltRounds = +process.env.SALT;
-    return bcrypt.hash(this.password, saltRounds);
+    if (!this.provider) {
+      const saltRounds = +process.env.SALT;
+      return bcrypt.hash(this.password, saltRounds);
+    }
   };
 
   Vendor.prototype.getSafeDataValues = function getSafeDataValues() {

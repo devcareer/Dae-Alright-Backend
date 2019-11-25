@@ -4,7 +4,7 @@ import database from '../../database/models';
 
 const { User } = database;
 
-export const findBySocialID = async (socialID, provider) => User.findOne({
+export const findBySocialID = async (socialID, provider, table) => table.findOne({
   where: { socialID, provider }
 });
 

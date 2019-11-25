@@ -12,9 +12,18 @@ describe('facebook login', () => {
   after(() => {
     stub.restore();
   });
-  it('should redirect to facebook request', done => {
+  it('should redirect user to facebook request', done => {
     request(app)
-      .get('/auth/facebook')
+      .get('/auth/facebook/user')
+      .end((err, res) => {
+        expect(res.status).to.equal(302);
+        expect(res.headers.location).to.include('https://www.facebook.com/v3.2/dialog/oauth?response_type=code');
+        done(err);
+      });
+  });
+  it('should redirect vendor to facebook request', done => {
+    request(app)
+      .get('/auth/facebook/user')
       .end((err, res) => {
         expect(res.status).to.equal(302);
         expect(res.headers.location).to.include('https://www.facebook.com/v3.2/dialog/oauth?response_type=code');

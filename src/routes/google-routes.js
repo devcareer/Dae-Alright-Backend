@@ -1,11 +1,20 @@
 import { Router } from 'express';
 import passportGoogle from '../config/passport-config/google-passport-config';
-import { socialOAuth } from '../controllers/auth.controller';
+import { socialOAuth, findRole } from '../controllers/auth.controller';
 
 const router = Router();
 
 router.get(
-  '/',
+  '/user', findRole,
+  passportGoogle.authenticate('google', {
+    session: false,
+    scope: ['profile', 'email'],
+  })
+
+);
+
+router.get(
+  '/vendor', findRole,
   passportGoogle.authenticate('google', {
     session: false,
     scope: ['profile', 'email'],

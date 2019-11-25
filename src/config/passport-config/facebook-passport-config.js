@@ -2,21 +2,24 @@ import { config } from 'dotenv';
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
 import database from '../../database/models';
+import { account } from '../../controllers/auth.controller';
 import { findBySocialID } from './config';
 
 const { User } = database;
+const { Vendor } = database;
 
 config();
 
 passport.use(new FacebookStrategy.Strategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: '/auth/facebook/redirect/',
+  callbackURL: `${process.env.URL}/auth/facebook/redirect`,
   profileFields: ['id', 'emails', 'name'],
 },
 (accessToken, refreshToken, profile, done) => {
   try {
-    findBySocialID(profile.id, 'facebook').then(async currentUser => {
+    const table = account === 'user' ? User : Vendor;
+    findBySocialID(profile.id, 'facebook', table).then(async currentUser => {
       if (currentUser) {
         return done(null, currentUser);
       }
@@ -31,7 +34,14 @@ passport.use(new FacebookStrategy.Strategy({
         address: '',
       };
 
-      await User.create(user);
+      if (account === 'user') {
+        await User.create(user);
+      } else if (account === 'vendor') {
+        user.name = `${user.firstName} ${user.lastName}`;
+        delete user.firstName;
+        delete user.lastName;
+        await Vendor.create(user);
+      }
       return done(null, user);
     });
   } catch (err) {
