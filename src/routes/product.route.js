@@ -1,15 +1,33 @@
-import {Router} from "express"
-import {getAllProduct, createProduct,
-        getProduct, deleteProduct, updateProduct} from "../controllers/product.controller"
+import { Router } from 'express';
+import {
+  getAllProduct, createProduct, getSpecificProduct, deleteOneProduct, updateProduct
+} from '../controllers/product.controller';
 
-productRoute = Router();
+const productRoute = Router();
 
+productRoute.get(
+  '/product',
+  getAllProduct
+);
 
-productRoute.get("/:restaurant_name/product", getAllProduct);
-productRoute.get("/search", getProduct);
-productRoute.post("/:restaurant_name/product", createProduct);
-productRoute.put("/:restaurant_name/product/:product_id", updateProduct);
-productRoute.delete("/:restaurant_name/product/:product_id", deleteProduct);
+productRoute.get(
+  '/product/:product_id',
+  getSpecificProduct
+);
 
+productRoute.post(
+  '/product',
+  createProduct
+);
+
+productRoute.put(
+  '/product/:product_id',
+  updateProduct
+);
+
+productRoute.delete(
+  '/product/:product_id',
+  deleteOneProduct
+);
 
 export default productRoute;
