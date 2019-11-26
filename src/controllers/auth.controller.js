@@ -3,7 +3,6 @@ import { generateToken } from '../helpers/auth';
 import { errorResponse, successResponse, serverError } from '../helpers/response';
 
 const { Vendor, User } = database;
-
 /**
  * Creates a client successfully
  *
@@ -48,7 +47,7 @@ export const socialOAuth = async (req, res) => {
  * @param {obj} res The response object
  * @returns {json} The response from db or error.
  */
-export const signin = async (req, res) => {
+export const signIn = async (req, res) => {
   const role = req.url.split('/')[1];
   const { password, email } = req.body;
 
