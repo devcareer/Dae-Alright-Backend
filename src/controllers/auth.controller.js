@@ -25,7 +25,19 @@ export const createClient = async (req, res) => {
       { [role]: newClient, token }
     );
   } catch (error) {
-    return serverError(error);
+    return serverError(res);
+  }
+};
+
+export const socialOAuth = async (req, res) => {
+  try {
+    const user = req.user || req.user.dataValues;
+    const token = generateToken(req.user.dataValues || req.user);
+    const statusCode = req.user.dataValues ? 200 : 201;
+    const message = req.user.dataValues ? 'Signed in' : 'Registered';
+    return successResponse(res, statusCode, message, { token, user });
+  } catch (err) {
+    return errorResponse(res, 400, err.message);
   }
 };
 
