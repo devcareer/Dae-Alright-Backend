@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
+import passpot from 'passport';
 import swaggerDoc from '../docs/dae-alright.json';
 import router from './routes';
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use(passpot.initialize());
 app.use(router);
 
 const port = NODE_ENV === 'test' ? 8378 : PORT || 3000;

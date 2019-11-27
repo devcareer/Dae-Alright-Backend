@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import database from '../database/models';
 import { generateToken } from '../helpers/auth';
 import { errorResponse, successResponse, serverError } from '../helpers/response';
@@ -37,10 +38,23 @@ export const findRole = (req, res, next) => {
 
 export const socialOAuth = async (req, res) => {
   try {
+    const user = req.user.dataValues ? req.user.dataValues : req.user;
+    const { socialID, email } = user;
+    const token = `Bearer ${jwt.sign({ socialID, email }, process.env.JWT_KEY, { expiresIn: '24h' })}`;
+    const statusCode = req.user.dataValues ? 200 : 201;
+    const message = req.user.dataValues ? 'Logged in' : 'Account Created';
+    return successResponse(res, statusCode, message, { token, user });
+  } catch (err) {
+    return errorResponse(res, 400, err.message);
+  }
+};
+
+export const socialOAuth = async (req, res) => {
+  try {
     const user = req.user || req.user.dataValues;
     const token = generateToken(req.user.dataValues || req.user);
     const statusCode = req.user.dataValues ? 200 : 201;
-    const message = req.user.dataValues ? 'Logged in' : 'Account Created';
+    const message = req.user.dataValues ? 'Signed in' : 'Registered';
     return successResponse(res, statusCode, message, { token, user });
   } catch (err) {
     return errorResponse(res, 400, err.message);
