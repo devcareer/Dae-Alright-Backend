@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import authentication from '../middleware/auth';
 import authSchemas from '../validations/auth.validator';
-import { createClient, signin } from '../controllers/auth.controller';
+import { createClient, signIn } from '../controllers/auth.controller';
+import { forgotPassword, resetPassword } from '../controllers/password.controller';
 import validator from '../middleware/validator';
 
-
 const { checkExistingClient } = authentication;
-const { userSignupSchema, vendorSignupSchema, signinSchema } = authSchemas;
+const { 
+  userSignupSchema, vendorSignupSchema,
+  signinSchema, emailSchema, passwordSchema,
+} = authSchemas;
 
 const authRoute = Router();
 
@@ -20,7 +23,19 @@ authRoute.post(
 authRoute.post(
   '/user/signin',
   validator(signinSchema),
-  signin
+  signIn
+);
+
+authRoute.post(
+  '/user/forgot',
+  validator(emailSchema),
+  forgotPassword
+);
+
+authRoute.post(
+  '/user/reset/:token',
+  validator(passwordSchema),
+  resetPassword
 );
 
 authRoute.post(
@@ -33,7 +48,7 @@ authRoute.post(
 authRoute.post(
   '/vendor/signin',
   validator(signinSchema),
-  signin
+  signIn
 );
 
 export default authRoute;
