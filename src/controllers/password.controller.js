@@ -23,12 +23,7 @@ export const forgotPassword = async (req, res) => {
   if (!user) {
     return errorResponse(res, 404, 'Email address does not match any account');
   }
-  const token = await generateToken({
-    id: user.id,
-    email,
-  },
-  '1hr',
-  );    
+  const token = await generateToken({ id: user.id, email }, '1hr');
   const url = process.env.NODE_ENV === 'development' || 'test'
     ? `${process.env.SITE_URL}/${token}`
     : `${process.env.PRODUCTION_URL}/${token}`;
@@ -36,8 +31,8 @@ export const forgotPassword = async (req, res) => {
     to: user.email,
     from: process.env.SENDER_EMAIL,
     subject: 'Password Reset',
-    text: `Hi ${user.firstName} \n 
-    A request to reset your account password was receieved. Please click on the following link ${url} to reset your password. \n\n 
+    text: `Hi ${user.firstName} \n
+    A request to reset your account password was receieved. Please click on the following link ${url} to reset your password. \n\n
     If you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
 
@@ -55,7 +50,7 @@ export const forgotPassword = async (req, res) => {
   * @param {obj} res The response object
   * @returns {json} The response from db or error.
 */
-export const resetPassword = async (req, res) => { 
+export const resetPassword = async (req, res) => {
   const { password } = req.body;
   const { token } = req.params;
   const hashedPassword = await bcrypt.hash(password, 10);

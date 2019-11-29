@@ -5,7 +5,10 @@ import { socialOAuth } from '../controllers/auth.controller';
 const router = Router();
 
 // mauthenticate with facebook
-router.get('/', passportFacebook.authenticate('facebook', { session: false, scope: ['email'] }));
+router.get(
+  '/',
+  passportFacebook.authenticate('facebook', { session: false, scope: ['email'] })
+);
 
 // callback route for facebook
 router.get(
