@@ -6,11 +6,10 @@ import facebookRoute from './facebook-routes';
 import vendorRoute from './vendor.route';
 
 const routes = Router();
-routes.use('/auth/google', googleRoute);
-routes.use('/auth/facebook', facebookRoute);
 
 routes.use('/auth', authRoute);
-
+routes.use('/auth/google', googleRoute);
+routes.use('/auth/facebook', facebookRoute);
 routes.use('/vendors', vendorRoute);
 routes.use('/vendor', vendorRoute);
 

@@ -6,7 +6,7 @@ import { forgotPassword, resetPassword } from '../controllers/password.controlle
 import validator from '../middleware/validator';
 
 const { checkExistingClient } = authentication;
-const { 
+const {
   userSignupSchema, vendorSignupSchema,
   signinSchema, emailSchema, passwordSchema,
 } = authSchemas;

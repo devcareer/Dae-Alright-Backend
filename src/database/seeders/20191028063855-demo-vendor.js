@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export default {
   // eslint-disable-next-line no-unused-vars
