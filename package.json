@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
-    "bcrypt": "^3.0.6",
+    "@sendgrid/mail": "^6.4.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "elasticsearch": "^16.5.0",
