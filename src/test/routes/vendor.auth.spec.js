@@ -50,7 +50,7 @@ describe('Vendor authentication Route', () => {
           expect(status).to.eql('error');
           expect(errors.phone).to.eql('enter a valid phone number');
           expect(errors.name)
-            .to.eql('name should be between 2 to 15 characters');
+            .to.eql('name should be between 2 to 25 characters');
           done(err);
         });
     });

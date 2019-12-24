@@ -8,8 +8,8 @@ export default {
       .withMessage('first name is required')
       .isLength({ min: 2, max: 15 })
       .withMessage('first name should be between 2 to 15 characters')
-      .isAlpha()
-      .withMessage('first name should only contain alphabets')
+      .matches(/^(\w+\s?)*\s*$/)
+      .withMessage('first name should only contain alphabets and non-consecutive spaces')
       .customSanitizer(value => value.toLowerCase()),
 
     check('lastName')
@@ -18,8 +18,8 @@ export default {
       .withMessage('last name is required')
       .isLength({ min: 2, max: 15 })
       .withMessage('last name should be between 2 to 15 characters')
-      .isAlpha()
-      .withMessage('last name should only contain alphabets')
+      .matches(/^(\w+\s?)*\s*$/)
+      .withMessage('last name should only contain alphabets and non-consecutive spaces')
       .customSanitizer(value => value.toLowerCase()),
 
     check('email')
@@ -56,10 +56,10 @@ export default {
       .trim()
       .exists()
       .withMessage('name is required')
-      .isLength({ min: 2, max: 15 })
-      .withMessage('name should be between 2 to 15 characters')
-      .isAlpha()
-      .withMessage('name should only contain alphabets')
+      .isLength({ min: 2, max: 25 })
+      .withMessage('name should be between 2 to 25 characters')
+      .matches(/^(\w+\s?)*\s*$/)
+      .withMessage('name should only contain alphabets and non-consecutive spaces')
       .customSanitizer(value => value.toLowerCase()),
 
     check('email')
