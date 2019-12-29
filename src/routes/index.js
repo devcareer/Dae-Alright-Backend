@@ -1,5 +1,4 @@
 import { Router } from 'express';
-
 import authRoute from './auth.route';
 import googleRoute from './google-routes';
 import facebookRoute from './facebook-routes';

@@ -221,7 +221,8 @@
                 }
               }
             }
-          }
+          },
+          "redirects": "/google/redirect"
         }
       }
     },
@@ -291,7 +292,8 @@
                 }
               }
             }
-          }
+          },
+          "redirects": "/facebook/callback"
         }
       }
     }

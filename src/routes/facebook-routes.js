@@ -4,17 +4,22 @@ import { socialOAuth } from '../controllers/auth.controller';
 
 const router = Router();
 
-// mauthenticate with facebook
+// authenticate with facebook
 router.get(
   '/',
-  passportFacebook.authenticate('facebook', { session: false, scope: ['email'] })
+  passportFacebook.authenticate('facebook', {
+    session: false,
+    scope: ['email']
+  })
 );
 
 // callback route for facebook
 router.get(
-  '/redirect',
-  passportFacebook.authenticate('facebook', { session: false, failureRedirect: '/signup' }),
-  socialOAuth,
+  '/callback',
+  passportFacebook.authenticate('facebook', {
+    session: false
+  }),
+  socialOAuth
 );
 
 export default router;
