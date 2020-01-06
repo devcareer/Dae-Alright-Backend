@@ -63,7 +63,7 @@ export const createProduct = async (req, res) => {
 };
 
 
-export const getAllProduct = async (req, res) => {
+export const getAllProduct = async (req, res) => { 
   try {
     const Offset = await trueOffset(req.query.page);
 

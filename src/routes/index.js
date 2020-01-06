@@ -6,16 +6,20 @@ import facebookRoute from './facebook-routes';
 import vendorRoute from './vendor.route';
 import searchRoute from './search.route';
 import productRoute from './product.route';
+import locationRoute from './location-search';
 
 const routes = Router();
 
 routes.use('/auth', authRoute);
 
+routes.use('/search/location', locationRoute);
 routes.use('/search', searchRoute);
 routes.use('/products', productRoute);
 routes.use('/auth/google', googleRoute);
 routes.use('/auth/facebook', facebookRoute);
 routes.use('/vendors', vendorRoute);
 routes.use('/vendor', vendorRoute);
+
+
 
 export default routes;

@@ -21,7 +21,7 @@
   "scripts": {
     "build": "npm run clean && npm run build-babel",
     "build-babel": "babel -d ./build ./src -s",
-    "clean": "rm -rf .nyc_output build coverage && mkdir build",
+    "clean": "rimraf .nyc_output build coverage && mkdir build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo:all",
@@ -31,7 +31,7 @@
     "lint": "eslint \"**/*.js\"",
     "postinstall": "npm run build && npm run db:migrate",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
-    "start": "node ./build/index.js",
+    "start": "nodemon ./build/index.js",
     "test": "cross-env NODE_ENV=test nyc mocha ./src/test"
   },
   "dependencies": {
