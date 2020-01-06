@@ -9,8 +9,7 @@ router.get(
   passportGoogle.authenticate('google', {
     session: false,
     scope: ['profile', 'email'],
-  })
-
+  }),
 );
 
 // callback route for google
@@ -18,8 +17,10 @@ router.get(
   '/redirect',
   passportGoogle.authenticate('google', {
     session: false,
+    scope: ['profile', 'email'],
     failureRedirect: '/signup',
-  }), socialOAuth
+  }),
+  socialOAuth,
 );
 
 export default router;

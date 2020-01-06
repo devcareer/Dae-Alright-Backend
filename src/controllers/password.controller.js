@@ -44,12 +44,12 @@ export const forgotPassword = async (req, res) => {
   }
 };
 /**
-  * Reset password successfully
-  *
-  * @param {obj} req The request object
-  * @param {obj} res The response object
-  * @returns {json} The response from db or error.
-*/
+ * Reset password successfully
+ *
+ * @param {obj} req The request object
+ * @param {obj} res The response object
+ * @returns {json} The response from db or error.
+ */
 export const resetPassword = async (req, res) => {
   const { password } = req.body;
   const { token } = req.params;
