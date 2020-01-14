@@ -14,7 +14,6 @@ routes.use('/search', searchRoute);
 routes.use('/products', productRoute);
 routes.use('/auth/google', googleRoute);
 routes.use('/auth/facebook', facebookRoute);
-routes.use('/vendors', vendorRoute);
-routes.use('/vendor', vendorRoute);
+routes.use(['/vendors', '/vendor'], vendorRoute);
 
 export default routes;
