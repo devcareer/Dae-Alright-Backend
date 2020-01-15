@@ -61,7 +61,7 @@ const getVendor = async (req, res) => {
       return errorResponse(
         res,
         400,
-        'Please provide a valid uuid'
+        'Please provide a valid vendorId'
       );
     }
     return serverError(res);
