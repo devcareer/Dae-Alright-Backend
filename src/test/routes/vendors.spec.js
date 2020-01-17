@@ -27,7 +27,7 @@ describe('Handles request to retrieve vendors', () => {
         .get('/vendor/thisisnotavaliduuid')
         .end((err, res) => {
           expect(res.status).to.equal(400);
-          expect(res.body.message).to.eql('Please provide a valid uuid');
+          expect(res.body.message).to.eql('Please provide a valid vendorId');
           done(err);
         });
     });
